@@ -28,7 +28,7 @@ public class IDIOMA extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/Imagen idioma.jpeg"))); // NOI18N
 
-        jcb_idioma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "ENGLISH", "ESPAÑOL" }));
+        jcb_idioma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ENGLISH", "ESPAÑOL" }));
         jcb_idioma.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcb_idiomaActionPerformed(evt);

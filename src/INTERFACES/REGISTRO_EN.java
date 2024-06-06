@@ -13,8 +13,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author 
+ * Esta clase representa la interfaz de registro de nuevos usuarios en el idioma ingles.
+ * Permite a los usuarios registrarse junto con sus datos personales y seleccionando el tipo de cuenta.
  */
 public class REGISTRO_EN extends javax.swing.JFrame {
 
@@ -26,7 +26,10 @@ public class REGISTRO_EN extends javax.swing.JFrame {
     String textoSeleccionado;
     
     private List<Cliente> clientes;
-    
+ /**
+     * Crea una nueva instancia de la clase REGISTRO_EN.
+     * Inicializa los componentes de la interfaz y carga los datos desde el archivo al iniciar el programa.
+     */   
     public REGISTRO_EN() {
         initComponents();
         panel_DatosCuenta.setVisible(true);
@@ -508,11 +511,19 @@ public class REGISTRO_EN extends javax.swing.JFrame {
     private void btn_OKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_OKActionPerformed
         panel_DatosCuenta.setVisible(false);
     }//GEN-LAST:event_btn_OKActionPerformed
- public String convertirAMoneda(double cantidad){
+ /**
+ * Convierte una cantidad numérica en una representación de moneda.
+ * @param cantidad La cantidad numérica a convertir.
+ * @return Una cadena que representa la cantidad en formato de moneda.
+ */   
+    public String convertirAMoneda(double cantidad){
         cantidad = Math.round(cantidad*100.0)/100.0;
         DecimalFormat formato = new DecimalFormat("$ #,###.## BS");
         return formato.format(cantidad);
     }
+ /**
+ * Muestra los datos del cliente seleccionado en la interfaz en inglés.
+ */    
     public void verDatos(){
         
         cliente = listaClientes.get(jcb_movCliente.getSelectedIndex());
@@ -536,6 +547,9 @@ public class REGISTRO_EN extends javax.swing.JFrame {
             jlb_datosTipoMoneda.setText("NO TIENE CUENTA");
         }
     }
+  /**
+ * Refresca el combo box de tipo de cuenta con las cuentas asociadas al cliente seleccionado.
+ */   
     public void resfrescarComboCuenta(){
         cliente = listaClientes.get(jcb_movCliente.getSelectedIndex());
         int i = 0;
@@ -545,6 +559,9 @@ public class REGISTRO_EN extends javax.swing.JFrame {
         }
         jcb_movTipoCuenta.setModel(new DefaultComboBoxModel(cuentas.toArray()));
     }
+     /**
+ * Llena el combo box de tipo de cuenta con los tipos de cuenta disponibles.
+ */
     public void llenarCombosTipoCuenta(){
         Object[] tipos = new Object [listaTipoCuenta.size()];
         int i = 0;
@@ -555,7 +572,9 @@ public class REGISTRO_EN extends javax.swing.JFrame {
         jcb_TipoCuenta.setModel(new DefaultComboBoxModel(tipos));
         jcb_movTipoCuenta.setModel(new DefaultComboBoxModel(tipos));
     }
-    
+ /**
+ * Llena el combo box de cliente con los nombres de clientes disponibles.
+ */ 
     public void llenarCombosCliente(){
         Object[] clientes = new Object [listaClientes.size()];
         int i = 0;
@@ -566,10 +585,17 @@ public class REGISTRO_EN extends javax.swing.JFrame {
         jcb_cliente.setModel(new DefaultComboBoxModel(clientes));
         jcb_movCliente.setModel(new DefaultComboBoxModel(clientes));
     }
+     /**
+ * Borra los datos seleccionados en el combo box de cliente y tipo de cuenta.
+ */
     public void borrarDatosCuenta(){
         jcb_cliente.setSelectedIndex(0);
         jcb_TipoCuenta.setSelectedIndex(0);
+    
     }
+    /**
+ * Borra los datos del cliente ingresados en los campos de texto.
+ */
     public void borrarDatosCliente(){
         txt_nombreCliente.setText(" ");
         txt_telefono.setText(" ");
@@ -577,7 +603,12 @@ public class REGISTRO_EN extends javax.swing.JFrame {
         txt_direccion.setText(" ");
         txt_constraseña.setText(" ");
     }
-    
+/**
+ * Busca un cliente por su identificador (nombre o cédula) y contraseña.
+ * @param identificador El identificador del cliente.
+ * @param contraseña La contraseña del cliente.
+ * @return El cliente si se encuentra, de lo contrario null.
+ */    
     public Cliente buscarClientePorIdentificadorYContraseña(String identificador, String contraseña) {
         for (Cliente cliente : listaClientes) {
             if ((cliente.getNombre().equalsIgnoreCase(identificador) || cliente.getCedula().equalsIgnoreCase(identificador)) && contraseña.equals(cliente.getContraseña())) {
@@ -590,7 +621,17 @@ public class REGISTRO_EN extends javax.swing.JFrame {
     public List<Cliente> getClientes() {
         return listaClientes;
     }
-
+/**
+ * Busca una cuenta por su número en un archivo específico.
+ * Recorre el archivo línea por línea, extrayendo la información relevante
+ * como la cédula del titular de la cuenta, el saldo actual y el tipo de moneda.
+ * Una vez que encuentra la cuenta con el número especificado, crea un objeto Cuenta
+ * y establece sus atributos correspondientes.
+ * 
+ * @param archivo El nombre del archivo donde se encuentra almacenada la información de las cuentas.
+ * @param numeroCuenta El número de cuenta que se desea buscar.
+ * @return La cuenta encontrada, o null si no se encuentra ninguna cuenta con el número especificado.
+ */
     public Cuenta buscarCuentaPorNumero(String archivo, String numeroCuenta) {
         Cuenta cuentaEncontrada = null;
         try (BufferedReader lector = new BufferedReader(new FileReader(archivo))) {
@@ -641,7 +682,10 @@ public class REGISTRO_EN extends javax.swing.JFrame {
         }
         return cuentaEncontrada;
     }
-    
+/**
+     * Método principal del programa.
+     * @param args Los argumentos de la línea de comandos (no se utilizan en este caso).
+     */       
     public static void main(String args[]) {
        
         java.awt.EventQueue.invokeLater(new Runnable() {

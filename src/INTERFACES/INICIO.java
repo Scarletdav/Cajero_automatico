@@ -9,7 +9,9 @@ import javax.swing.JOptionPane;
  * Al hacer clic en "REGISTRARSE", se muestra la interfaz de registro de nuevos usuarios.
  */
 public class INICIO extends javax.swing.JFrame {
-
+    /**
+     * Constructor de la clase INICIO.
+     */
     public INICIO() {
         initComponents();
     }

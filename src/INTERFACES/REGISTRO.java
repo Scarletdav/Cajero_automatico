@@ -659,7 +659,10 @@ public class REGISTRO extends javax.swing.JFrame {
         }
         return cuentaEncontrada;
     }
-    
+/**
+     * Método principal del programa.
+     * @param args Los argumentos de la línea de comandos (no se utilizan en este caso).
+     */      
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

@@ -14,7 +14,8 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
+ **La clase CAJERO representa la interfaz de usuario de un cajero automático en el idioma ingles.
+ * Permite a los usuarios interactuar con sus cuentas bancarias realizando distintas operaciones.
  * @author GRUPO HEAVY 
  */
 public class CAJERO_EN extends javax.swing.JFrame {
@@ -40,6 +41,10 @@ public class CAJERO_EN extends javax.swing.JFrame {
     double cantidad = 0;
     //Cajero cajero = new Cajero();
     
+     /**
+     * Constructor de la clase CAJERO_EN.
+     * Inicializa la interfaz gráfica y establece el modelo de la tabla de movimientos en el idioma ingles.
+     */   
     public CAJERO_EN() {
          initComponents();
         
@@ -64,7 +69,11 @@ public class CAJERO_EN extends javax.swing.JFrame {
         habilitarBotonesNumericos(false);
         habilitarBotonesControl(false);
     }
-
+    /**
+     * Habilita o deshabilita los botones principales del cajero.
+     * @param estado true para habilitar los botones
+     * @param false para deshabilitarlos.
+     */
      private void habilitarBotonesPrincipales(boolean estado) {
         btn_depositar.setEnabled(estado);
         btn_retirar.setEnabled(estado);
@@ -73,7 +82,11 @@ public class CAJERO_EN extends javax.swing.JFrame {
         btn_transferir.setEnabled(estado);
         btn_CambiarContraseña.setEnabled(estado);
     }
-
+    /**
+     * Habilita o deshabilita los botones numéricos del cajero.
+     * @param estado true para habilitar los botones
+     * @param false para deshabilitarlos.
+     */
     private void habilitarBotonesNumericos(boolean estado) {
         btn_1.setEnabled(estado);
         btn_2.setEnabled(estado);
@@ -86,13 +99,26 @@ public class CAJERO_EN extends javax.swing.JFrame {
         btn_9.setEnabled(estado);
         btn_0.setEnabled(estado);
     }
-
+    /**
+     * Habilita o deshabilita los botones de control del cajero.
+     * @param estado true para habilitar los botones
+     * @param false para deshabilitarlos.
+     */
     private void habilitarBotonesControl(boolean estado) {
         btn_cancelar.setEnabled(estado);
         btn_borrar.setEnabled(estado);
         btn_aceptar.setEnabled(estado);
     }
     
+    /**
+     * Este metodo maneja la selección de opciones en el cajero y configura la interfaz.
+     * @param mensaje El mensaje que se muestra en la interfaz para indicar la acción seleccionada.
+     * @param depositar true si se seleccionó la opción de depósito, false de lo contrario.
+     * @param retirar true si se seleccionó la opción de retiro, false de lo contrario.
+     * @param consultarSaldo true si se seleccionó la opción de consulta de saldo, false de lo contrario.
+     * @param transferir true si se seleccionó la opción de transferencia, false de lo contrario.
+     * @param cambiarContraseña true si se seleccionó la opción de cambio de contraseña, false de lo contrario.
+     */
     private void manejarSeleccionOpcion(String mensaje, boolean depositar, boolean retirar, boolean consultarSaldo, boolean transferir, boolean cambiarContraseña) {
         opcionDepositar = depositar;
         opcionRetirar = retirar;
@@ -1073,14 +1099,17 @@ public class CAJERO_EN extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_transferirActionPerformed
 
     private void btn_CambiarContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CambiarContraseñaActionPerformed
-        manejarSeleccionOpcion("[PASSWORD CHANGE]", false, false, false, false, true);
+        manejarSeleccionOpcion("[PASSWORD CHANGE] Enter the new password", false, false, false, false, true);
     }//GEN-LAST:event_btn_CambiarContraseñaActionPerformed
 
     private void btn_OKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_OKActionPerformed
         panel_DatosCuenta.setVisible(false);
     }//GEN-LAST:event_btn_OKActionPerformed
-
-  
+/**
+ * Agrega un número seleccionado al campo correspondiente.
+ * Si se está esperando un número de cuenta.
+ * @param numero El número seleccionado para agregar.
+ */
     private void agregarNumeroCampos(String numero) {
         if (esperandoNumeroCuenta) {
             jlb_cantidad.setText(jlb_cantidad.getText() + numero);
@@ -1089,14 +1118,25 @@ public class CAJERO_EN extends javax.swing.JFrame {
             jPasswordField1.setText(jPasswordField1.getText() + numero);
         }
     }
-    
+ /**
+ * Elimina el último carácter de una cadena de texto.
+ * Si la cadena es nula o está vacía, devuelve un espacio en blanco.
+ * @param caracter La cadena de texto de la cual se eliminará el último carácter.
+ * @return La cadena de texto resultante después de eliminar el último carácter, 
+ * o un espacio en blanco si la cadena es nula o vacía.
+ */   
     private String eliminarUltimoCaracter(String carater) {
         if (carater != null && carater.length() > 0) {
             carater = carater.substring(0, carater.length() - 1);
         }
         return carater.isEmpty() ? " " : carater;
     }
-
+/**
+ * Agrega un nuevo movimiento a la cuenta actual y actualiza la tabla de movimientos y el archivo de registros.
+ * @param tipo El tipo de movimiento (Depósito, Retiro, Transferencia salida, Transferencia entrada, etc.).
+ * @param monto El monto del movimiento.
+ * @param numeroCuenta El número de cuenta asociado al movimiento.
+ */
     private void agregarMovimiento(String tipo, double monto, String numeroCuenta) {
         if (cuentaActual != null) {
             Movimiento movimiento = new Movimiento(tipo, monto, new Date());
@@ -1115,6 +1155,9 @@ public class CAJERO_EN extends javax.swing.JFrame {
         }
     }
 
+/**
+ * Realiza la operación seleccionada (Depósito, Retiro, Consulta de Saldo o Cambio de Contraseña).
+ */
     private void realizarOperacion() {
         if (opcionDepositar) {
             realizarDeposito();
@@ -1127,7 +1170,10 @@ public class CAJERO_EN extends javax.swing.JFrame {
         }
         resetearOperaciones();
     }
-
+/**
+ * Realiza un depósito en la cuenta actual, actualiza los saldos y registra el movimiento.
+ */
+   
     private void realizarDeposito() {
         cantidad = Double.parseDouble(jlb_cantidad.getText().trim());
         if (cuentaActual != null) {
@@ -1141,7 +1187,9 @@ public class CAJERO_EN extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Select an account.");
         }
     }
-
+/**
+ * Realiza un retiro en la cuenta actual, actualiza los saldos y registra el movimiento.
+ */
     private void realizarRetiro() {
         cantidad = Double.parseDouble(jlb_cantidad.getText().trim());
             if (cuentaActual != null) {
@@ -1164,7 +1212,9 @@ public class CAJERO_EN extends javax.swing.JFrame {
             }
     }
 
-    
+  /**
+ * Realiza una consulta de saldo en la cuenta actual y muestra la información en la interfaz.
+ */    
     private void realizarConsultaDeSaldo() {
         if (cuentaActual != null) {
                 panel_ConsultaSaldo.setVisible(true);
@@ -1175,7 +1225,9 @@ public class CAJERO_EN extends javax.swing.JFrame {
         }
            
     }
-    
+ /**
+ * Realiza transferencias desde la cuenta actual a cualquier otra seleccionada y la registra en la tabla de movimientos .
+ */     
     private void realizarTransferencia() {
         try {
             // Obtener cantidad a transferir
@@ -1228,10 +1280,30 @@ public class CAJERO_EN extends javax.swing.JFrame {
 
         resetearOperaciones();
     }
+/**
+ * Realiza el cambio de contraseña para el cliente actual y actualiza el archivo de registros.
+ */  
     private void realizarCambioDeContraseña() {
+         cantidad = Double.parseDouble(jlb_cantidad.getText().trim());
+        if (clienteActual != null) {
+            clienteActual.setContraseña(jlb_cantidad.getText());
+            //jlb_saldoActual.setText(String.valueOf(cuentaActual.getSaldoActual()));
+            agregarMovimiento("Cambio de contraseña", 0.0 , cuentaActual.getNumeroCuenta());
+            JOptionPane.showMessageDialog(null, "Cambio de contraseña exitosa.");
+
+            RegistroArchivos.actualizarContraseñaEnArchivo("RegistroClientes.txt", clienteActual.getCedula(), clienteActual.getContraseña());
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione una cuenta.");
+        }
         
     }
-    
+   /**
+ * Convierte una cantidad de una moneda a otra según la tasa de conversión.
+ * @param cantidad La cantidad de dinero a convertir.
+ * @param monedaOrigen La moneda de origen.
+ * @param monedaDestino La moneda de destino.
+ * @return La cantidad convertida.
+ */  
     private double convertirMoneda(double cantidad, String monedaOrigen, String monedaDestino) {
         double tasaConversion = 1.0;
 
@@ -1262,7 +1334,9 @@ public class CAJERO_EN extends javax.swing.JFrame {
         return cantidad * tasaConversion;
     }
 
-    
+  /**
+ * Reinicia las operaciones y los controles de la interfaz después de completar una operación o cancelarla.
+ */   
     private void resetearOperaciones() {
         esperandoNumeroCuenta = false;
         //esperandoCantidadTransferir = false;
@@ -1283,7 +1357,12 @@ public class CAJERO_EN extends javax.swing.JFrame {
         opcionTransferir = false;
         opcionCambiarContraseña = false;
     }
-    
+/**
+ * Verifica la identidad del cliente ingresando un identificador y una contraseña,
+ * mostrando un mensaje de error si los datos son incorrectos y ofreciendo al usuario
+ * la opción de volver a intentarlo o registrarse si no es cliente.
+ * TODO CON MENSAJES EN EL IDIOMA INGLES
+ */    
     public void verificarCliente() {
         boolean clienteEncontrado = false;
         do {
@@ -1313,7 +1392,10 @@ public class CAJERO_EN extends javax.swing.JFrame {
             }
         } while (!clienteEncontrado);
     }
-    
+ /**
+ * Muestra las cuentas asociadas al cliente en un JComboBox y actualiza la interfaz gráfica.
+ * @param cliente El cliente cuyas cuentas se mostrarán.
+ */     
      private void mostrarCuentasCliente(Cliente cliente) {
         if (cliente != null && cliente.getCuentas() != null) {
             jcb_movTipoCuenta.removeAllItems();
@@ -1326,7 +1408,11 @@ public class CAJERO_EN extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "The client has no associated accounts.");
         }
     }
-    
+ /**
+ * Muestra los datos del cliente y la cuenta actual en la interfaz gráfica.
+ * También carga y muestra los movimientos de la cuenta en una tabla.
+ * TODO CON MENSAJES EN EL IDIOMA INGLES
+ */   
     public void verDatos() {
         if (cuentaActual == null) {
             JOptionPane.showMessageDialog(null, "No current account selected.");
@@ -1365,13 +1451,20 @@ public class CAJERO_EN extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No current account selected.");
         }
     }
-
+ /**
+ * Convierte un monto a su representación de moneda en formato de texto.
+ * @param monto El monto a convertir.
+ * @return La representación del monto en formato de moneda.
+ */
     // Método para convertir monto a representación de moneda
     private String convertirAMoneda(double monto) {
         NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("es", "ES"));
         return formatter.format(monto);
     }
-
+/**
+     * Método principal del programa.
+     * @param args Los argumentos de la línea de comandos (no se utilizan en este caso).
+     */
     public static void main(String args[]) {
        
         java.awt.EventQueue.invokeLater(new Runnable() {

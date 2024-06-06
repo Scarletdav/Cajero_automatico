@@ -16,11 +16,9 @@ import java.util.Locale;
  * guarda informacion en archivos
  * @author GRUPO HEAVY
  */
-
 public class RegistroArchivos {
-    /**
+/**
  * Método para guardar un cliente en el archivo.
- * 
  * @param cliente el cliente a guardar en el archivo
  * @param nombreArchivo el nombre del archivo donde se guardará el cliente
  */

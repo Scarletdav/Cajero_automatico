@@ -34,7 +34,7 @@ public class Cliente {
      */
     private List<Cuenta> cuentas;   
     /**
-     * El identificador único del cliente.
+     * El identificador del cliente.
      */
     private String identificador;
     

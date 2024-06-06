@@ -130,9 +130,9 @@ public class Cuenta {
     /**
      * Establece el tipo de moneda.
      *
-     * @param tipoMoneda El tipo de moneda.
+     * @param tipoMOneda El tipo de moneda.
      */
-    public void setTipoMOneda(String tipoMoneda) {
+    public void setTipoMOneda(String tipoMOneda) {
         this.tipoMOneda = tipoMOneda;
     }
     
